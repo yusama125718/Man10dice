@@ -1,0 +1,11 @@
+name: Tsubouchi_man10dice
+version: '${version}'
+main: tsubouchi_pl.tsubouchi_man10dice.Tsubouchi_man10dice
+api-version: 1.17
+authors: [ tsubouchi282902 ]
+description: man10dice
+
+commands:
+  mdice:
+     description: send a diceroll
+     usage: /<command> [text] [text]
