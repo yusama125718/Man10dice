@@ -7,3 +7,9 @@ commands:
   mdice:
     description: send a diceroll
     usage: /<command> [text] [text]
+
+parmissions:
+  mdice.op:
+    default: op
+  mdice.player:
+    default: true
