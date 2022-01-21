@@ -34,8 +34,15 @@ public final class Man10Dice extends JavaPlugin
 
             if (sender.hasPermission("mdice.player"))
             {
-                switch (args.length) {
+                switch (args.length)
+                {
                     case 1:
+                        if(args[0].length()>=10)
+                        {
+                            sender.sendMessage("§e§l[Man10Dice]§r§c§lダイスの面数は10億以上に設定できません");
+                            return true;
+                        }
+
                         if (args[0].equals("hide"))
                         {
                             if (dissableplayers.contains(playerid.getUniqueId()))
@@ -50,6 +57,7 @@ public final class Man10Dice extends JavaPlugin
                                 return true;
                             }
                         }
+
                         if ((args[0].equals("show")))
                         {
                             if (dissableplayers.contains(playerid.getUniqueId()))
@@ -64,6 +72,7 @@ public final class Man10Dice extends JavaPlugin
                                 return true;
                             }
                         }
+
                         if (!operation)
                         {
                             boolean isNumeric = args[0].matches("-?\\d+");
@@ -77,7 +86,7 @@ public final class Man10Dice extends JavaPlugin
                                     {
                                         if (!dissableplayers.contains(player.getUniqueId()))
                                         {
-                                            player.sendMessage("§e§l[Man10Dice]§r§lダイスを振っています...");
+                                            player.sendMessage("§e§l[Man10Dice]§r" + sender.getName() + "§lはダイスを振っています...");
                                         }
                                     }
 
@@ -118,6 +127,12 @@ public final class Man10Dice extends JavaPlugin
                         }
 
                     case 2:
+                        if (args[0].length()>=10||args[1].length()>=10)
+                        {
+                            sender.sendMessage("§e§l[Man10Dice]§r§c§lダイスの面数は10億以上に設定できません");
+                            return true;
+                        }
+
                         if (!operation)
                         {
                             boolean isNumeric2 = args[1].matches("-?\\d+");
@@ -135,7 +150,7 @@ public final class Man10Dice extends JavaPlugin
                                                 {
                                                     if (!dissableplayers.contains(player.getUniqueId()))
                                                     {
-                                                        player.sendMessage("§e§l[Man10Dice]§r§lダイスを振っています...");
+                                                        player.sendMessage("§e§l[Man10Dice]§r" + sender.getName() + "§lはダイスを振っています...");
                                                     }
                                                 }
                                                 Bukkit.getScheduler().runTaskLater(this, new Runnable() {
@@ -201,6 +216,12 @@ public final class Man10Dice extends JavaPlugin
         {
             switch (args.length) {
                 case 1:
+                    if(args[0].length()>=10)
+                    {
+                        sender.sendMessage("§e§l[Man10Dice]§r§c§lダイスの面数は10億以上に設定できません");
+                        return true;
+                    }
+
                     if (!operation)
                     {
                         boolean isNumeric = args[0].matches("-?\\d+");
@@ -213,7 +234,7 @@ public final class Man10Dice extends JavaPlugin
                                 {
                                     if (!dissableplayers.contains(player.getUniqueId()))
                                     {
-                                        player.sendMessage("§e§l[Man10Dice]§r§lダイスを振っています...");
+                                        player.sendMessage("§e§l[Man10Dice]§r" + sender.getName() + "§lははダイスを振っています...");
                                     }
                                 }
 
@@ -254,6 +275,12 @@ public final class Man10Dice extends JavaPlugin
                     }
 
                 case 2:
+                    if (args[0].length()>=10||args[1].length()>=10)
+                    {
+                        sender.sendMessage("§e§l[Man10Dice]§r§c§lダイスの面数は10億以上に設定できません");
+                        return true;
+                    }
+
                     if (!operation)
                     {
                         boolean isNumeric2 = args[1].matches("-?\\d+");
@@ -271,7 +298,7 @@ public final class Man10Dice extends JavaPlugin
                                             {
                                                 if (!dissableplayers.contains(player.getUniqueId()))
                                                 {
-                                                    player.sendMessage("§e§l[Man10Dice]§r§lダイスを振っています...");
+                                                    player.sendMessage("§e§l[Man10Dice]§r" + sender.getName() + "§lはダイスを振っています...");
                                                 }
                                             }
 
