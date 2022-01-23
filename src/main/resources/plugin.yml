@@ -7,9 +7,16 @@ commands:
   mdice:
     description: send a diceroll
     usage: /<command> [text] [text]
+  mlot:
+    description: lottery
+    usage: /<command> [text] [text]
 
 parmissions:
   mdice.op:
     default: op
   mdice.player:
+    default: true
+  mlot.op:
+    default: op
+  mlot.player:
     default: true
