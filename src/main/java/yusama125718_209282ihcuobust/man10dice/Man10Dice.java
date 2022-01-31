@@ -389,14 +389,13 @@ public final class Man10Dice extends JavaPlugin
                             return true;
                         }
                         int maxtime = Man10Dice.getConfig().getInt("mlot.maxtime");
-                        if (args[1]>maxtime)
+                        int dicedelay = parseInt(args[1]);
+                        if (dicedelay > maxtime)
                         {
                             sender.sendMessage("§l[§e§lMan10DiceLottery§f§l]§r§c§l時間は"+maxtime+"以下の整数にしてください");
                             return true;
                         }
                         mlotdicestakes = parseInt(args[0]);
-                        int dicedelay = parseInt(args[1]);
-
                         mlotoperation = true;
                         activegame = true;
                         for (Player player : Bukkit.getOnlinePlayers())
