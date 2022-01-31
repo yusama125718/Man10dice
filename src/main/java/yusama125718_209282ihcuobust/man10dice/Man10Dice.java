@@ -45,15 +45,30 @@ public final class Man10Dice extends JavaPlugin
                 sender.sendMessage("§c[Man10Dice]You don't have permission!");
                 return true;
             }
-            if (!ondice)
-            {
-                sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§7§l現在Man10DiceはOFFです");
-                return true;
-            }
             switch (args.length)
             {
                 case 1:
                 {
+                    if (sender.hasPermission("mdice.op"))
+                    {
+                        if ((args[0].equals("on")))
+                        {
+                            ondice = true;
+                            sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§7§lONにしました");
+                            return true;
+                        }
+                        if ((args[0].equals("off")))
+                        {
+                            ondice = false;
+                            sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§7§lOFFにしました");
+                            return true;
+                        }
+                    }
+                    if (!ondice)
+                    {
+                        sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§7§l現在Man10DiceはOFFです");
+                        return true;
+                    }
                     if (sender instanceof Player)
                     {
                         Player playerid=(Player)sender;
@@ -78,17 +93,6 @@ public final class Man10Dice extends JavaPlugin
                                 return true;
                             }
                         }
-                        if (sender.hasPermission("mdice.op"))
-                        {
-                            if ((args[0].equals("on")))
-                            {
-                                ondice = true;
-                            }
-                            if ((args[0].equals("off")))
-                            {
-                                ondice = false;
-                            }
-                        }
                         if ((args[0].equals("show")))
                         {
                             if (dissableplayers.contains(playerid.getUniqueId()))
@@ -110,7 +114,7 @@ public final class Man10Dice extends JavaPlugin
                         return true;
                     }
                     boolean isNumeric = args[0].matches("-?\\d+");
-                    if (isNumeric)
+                    if (!isNumeric)
                     {
                         sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの面数は1以上の整数にしてください");
                         return true;
@@ -121,7 +125,7 @@ public final class Man10Dice extends JavaPlugin
                         return true;
                     }
                     int dicestakes = parseInt(args[0]);
-                    if (dicestakes >= 1)
+                    if (dicestakes <= 1)
                     {
                         sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの面数は1以上の整数にしてください");
                         return true;
@@ -157,6 +161,11 @@ public final class Man10Dice extends JavaPlugin
 
                 case 2:
                 {
+                    if (!ondice)
+                    {
+                        sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§7§l現在Man10DiceはOFFです");
+                        return true;
+                    }
                     int maxdice = Man10Dice.getConfig().getInt("mdice.maxdice");
                     if (!ondice)
                     {
@@ -169,7 +178,7 @@ public final class Man10Dice extends JavaPlugin
                         return true;
                     }
                     boolean isNumeric = args[0].matches("-?\\d+");
-                    if (isNumeric)
+                    if (!isNumeric)
                     {
                         sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの面数は1以上の整数にしてください");
                         return true;
@@ -186,20 +195,20 @@ public final class Man10Dice extends JavaPlugin
                         return true;
                     }
                     int dicestakes = parseInt(args[0]);
-                    if (dicestakes >= 1)
+                    if (dicestakes < 1)
                     {
                         sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの面数は1以上の整数にしてください");
                         return true;
                     }
                     int numberofdice = parseInt(args[1]);
-                    if (!(numberofdice >= 1))
+                    if (numberofdice < 1)
                     {
                         sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの数は1以上12以下の整数にしてください");
                         return true;
                     }
-                    if (!(numberofdice <= maxdice))
+                    if (numberofdice > maxdice)
                     {
-                        sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの数は1以上12以下の整数にしてください");
+                        sender.sendMessage("§l[§e§lMan10Dice§f§l]§r§c§lダイスの数は1以上"+maxdice+"以下の整数にしてください");
                         return true;
                     }
 
@@ -254,15 +263,30 @@ public final class Man10Dice extends JavaPlugin
                 sender.sendMessage("§c[Man10DiceLottery]You don't have permission!");
                 return true;
             }
-            if (!onlottery)
-            {
-                sender.sendMessage("§l[§e§lMan10DiceLottery§f§l]§r§7§l現在Man10DiceLotteryはOFFです");
-                return true;
-            }
             switch (args.length)
             {
                 case 1:
                 {
+                    if (sender.hasPermission("mlot.op"))
+                    {
+                        if ((args[0].equals("on")))
+                        {
+                            ondice = true;
+                            sender.sendMessage("§l[§e§lMan10DiceLottery§f§l]§r§7§lONにしました");
+                            return true;
+                        }
+                        if ((args[0].equals("off")))
+                        {
+                            ondice = false;
+                            sender.sendMessage("§l[§e§lMan10DiceLottery§f§l]§r§7§lOFFにしました");
+                            return true;
+                        }
+                    }
+                    if (!onlottery)
+                    {
+                        sender.sendMessage("§l[§e§lMan10DiceLottery§f§l]§r§7§l現在Man10DiceLotteryはOFFです");
+                        return true;
+                    }
                     if (!(sender instanceof Player))
                     {
                         return true;
@@ -359,6 +383,11 @@ public final class Man10Dice extends JavaPlugin
 
                 case 2:
                 {
+                    if (!onlottery)
+                    {
+                        sender.sendMessage("§l[§e§lMan10DiceLottery§f§l]§r§7§l現在Man10DiceLotteryはOFFです");
+                        return true;
+                    }
                     if (sender.hasPermission("mlot.op"))
                     {
                         if (args[0].length() >= 10)

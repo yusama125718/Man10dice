@@ -1,20 +1,22 @@
-name: Man10Manchiro
+name: Man10Dice
 version: '${project.version}'
-main: yusama125718_209282ihcuobust.man10manchiro.Man10Manchiro
+main: yusama125718_209282ihcuobust.man10dice.Man10Dice
 api-version: 1.17
 
 commands:
-  mcr:
-    description: manchiro
-    usage: /<command> [text] [text] [text]
+  mdice:
+    description: send a diceroll
+    usage: /<command> [text] [text]
+  mlot:
+    description: lottery
+    usage: /<command> [text] [text]
 
-permissions:
-  mcr.op:
+parmissions:
+  mdice.op:
     default: op
-  mcr.player:
+  mdice.player:
     default: true
-  mcr.father:
+  mlot.op:
     default: op
-
-depend:
-  - Vault
+  mlot.player:
+    default: true
