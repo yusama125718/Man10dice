@@ -1,4 +1,13 @@
-mdice.maxdice: 12
-mlot.maxtime: 120
-OnDice: true
-OnLottery: true
+
+mysql:
+  host: "localhost"
+  port: "3306"
+  user: "root"
+  pass: "yuhei0329"
+  db: "mcr_data"
+
+maxRate: 10000000
+minRate: 1000
+tax: 0
+canPlay: true
+jackpot: 0
