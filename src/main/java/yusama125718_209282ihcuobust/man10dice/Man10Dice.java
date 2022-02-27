@@ -370,7 +370,7 @@ public final class Man10Dice extends JavaPlugin
                         }
                         appliedplayers.put(luckynumber,mlotplayerid.getUniqueId());
                         sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§e§l応募しました！");
-                        owner.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§b§l"+ Objects.requireNonNull(((Player) sender).getPlayer()).getName()+"§e§lが"+luckynumber+"を応募しました");
+                        owner.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§c§l"+ Objects.requireNonNull(((Player) sender).getPlayer()).getName()+"§e§lが"+luckynumber+"を応募しました");
                         return true;
                     }
                     else
@@ -445,7 +445,7 @@ public final class Man10Dice extends JavaPlugin
                             if (!mlotdissableplayers.contains(player.getUniqueId()))
                             {
                                 player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§b§l" + sender.getName() + "§lが§e§l" + args[0] + "D§fを§l開始しました！ §e/mlot [数字] §r§lで§c§l参加しましょう！");
-                                player.sendMessage(text("§e§lここをクリックで自動入力する").clickEvent(suggestCommand("/mlot ")));
+                                player.sendMessage(text("§e§l[ここをクリックで自動入力する]").clickEvent(suggestCommand("/mlot ")));
                             }
                         }
                         int outnumber;
@@ -456,24 +456,21 @@ public final class Man10Dice extends JavaPlugin
                         mlotowner = sender.getName();
                         mlotdice = parseInt(args[0]);
                         counttime = dicedelay;
-                        CountDown count = new CountDown();
-                        count.start();
-                        try
+                        Bukkit.getScheduler().runTaskLater(this, new Runnable()
                         {
-                            count.join();
-                        }
-                        catch (InterruptedException e)
-                        {
-                            e.printStackTrace();
-                        }
-                        activegame = false;
-                        for (Player player : Bukkit.getOnlinePlayers())
-                        {
-                            if (!mlotdissableplayers.contains(player.getUniqueId()))
+                            @Override
+                            public void run()
                             {
-                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§lダイスを振っています...");
+                                activegame = false;
+                                for (Player player : Bukkit.getOnlinePlayers())
+                                {
+                                    if (!mlotdissableplayers.contains(player.getUniqueId()))
+                                    {
+                                        player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§lダイスを振っています...");
+                                    }
+                                }
                             }
-                        }
+                        }, dicedelay*20L);
                         Bukkit.getScheduler().runTaskLater(this, new Runnable()
                         {
                             @Override
@@ -494,7 +491,7 @@ public final class Man10Dice extends JavaPlugin
                                         {
                                             if (!mlotdissableplayers.contains(player.getUniqueId()))
                                             {
-                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r" + Bukkit.getOfflinePlayer(appliedplayers.get(outnumber)).getName() + "§lは出目を §e§lピッタリ §f§l予想しました！");
+                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§l" + Bukkit.getOfflinePlayer(appliedplayers.get(outnumber)).getName() + "§lは出目を §e§lピッタリ §f§l予想しました！");
                                             }
                                         }
                                         winner++;
@@ -505,7 +502,7 @@ public final class Man10Dice extends JavaPlugin
                                         {
                                             if (!mlotdissableplayers.contains(player.getUniqueId()))
                                             {
-                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r" + Bukkit.getOfflinePlayer(appliedplayers.get(outnumber + 1)).getName() + "§lは出目を §e§l1つ多く §f§l予想しました！");
+                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§l" + Bukkit.getOfflinePlayer(appliedplayers.get(outnumber + 1)).getName() + "§lは出目を §e§l1つ多く §f§l予想しました！");
                                             }
                                         }
                                         winner++;
@@ -516,7 +513,7 @@ public final class Man10Dice extends JavaPlugin
                                         {
                                             if (!mlotdissableplayers.contains(player.getUniqueId()))
                                             {
-                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r" + Bukkit.getOfflinePlayer(appliedplayers.get(outnumber - 1)).getName() + "§lは出目を §e§l1つ少なく §f§l予想しました！");
+                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§l" + Bukkit.getOfflinePlayer(appliedplayers.get(outnumber - 1)).getName() + "§lは出目を §e§l1つ少なく §f§l予想しました！");
                                             }
                                         }
                                         winner++;
@@ -527,7 +524,7 @@ public final class Man10Dice extends JavaPlugin
                                         {
                                             if (!mlotdissableplayers.contains(player.getUniqueId()))
                                             {
-                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§l当選者はいませんでした");
+                                                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§e§l当選者はいませんでした");
                                             }
                                         }
                                     }
@@ -535,7 +532,7 @@ public final class Man10Dice extends JavaPlugin
                                     mlotoperation = false;
                                 }
                             }
-                        }, 60L);
+                        }, dicedelay*20L+60L);
                         return true;
                     }
                     else
@@ -569,5 +566,67 @@ public final class Man10Dice extends JavaPlugin
     public void onDisable() {
         // Plugin shutdown logic
     }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, org.bukkit.command.Command command, String alias, String[] args)
+    {
+        if(command.getName().equalsIgnoreCase("mdice"))
+        {
+            if (!ondice)
+            {
+                return  null;
+            }
+            if (args.length == 1)
+            {
+                if (args[0].length() == 0)
+                {
+                    return Collections.singletonList("[面の数]");
+                }
+            }
+            if (args.length == 2)
+            {
+                if (args[1].length() == 0)
+                {
+                    return Collections.singletonList("[ダイスの数]");
+                }
+            }
+        }
+        if(command.getName().equalsIgnoreCase("mlot"))
+        {
+            if (!onlottery)
+            {
+                return  null;
+            }
+            if (activegame)
+            {
+                if (args.length == 1)
+                {
+                    if (args[0].length() == 0)
+                    {
+                        return Collections.singletonList("[応募する数字]");
+                    }
+                }
+            }
+            else if (sender.hasPermission("mlot.op"))
+            {
+                if (args.length == 1)
+                {
+                    if (args[0].length() == 0)
+                    {
+                        return Collections.singletonList("[面の数]");
+                    }
+                }
+                if (args.length == 2)
+                {
+                    if (args[1].length() == 0)
+                    {
+                        return Collections.singletonList("[時間(秒)]");
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
 }
 
