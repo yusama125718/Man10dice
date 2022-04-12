@@ -166,9 +166,16 @@ public final class Man10Dice extends JavaPlugin
                                     player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lは" + dicestakes + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
                                 }
                             }
-                            operation = false;
                         }
                     }, 60);
+                    Bukkit.getScheduler().runTaskLater(this, new Runnable()
+                    {
+                        @Override
+                        public void run()
+                        {
+                            operation = false;
+                        }
+                    }, ct * 20L + 60);
                     return true;
                 }
 
@@ -260,7 +267,7 @@ public final class Man10Dice extends JavaPlugin
                         {
                             operation = false;
                         }
-                    }, ct * 1000L + 60);
+                    }, ct * 20L + 60);
                     return true;
                 }
 
