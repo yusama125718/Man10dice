@@ -1,6 +1,6 @@
 name: Man10Dice
 version: '${project.version}'
-main: yusama125718_209282ihcuobust.man10dice.Man10Dice
+main: yusama125718.man10dice.Man10Dice
 api-version: 1.17
 
 commands:
