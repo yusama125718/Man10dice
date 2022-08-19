@@ -1,5 +1,5 @@
-mdice.maxdice: 12
-mlot.maxtime: 120
+maxdice: 12
+maxtime: 120
 OnDice: true
 OnLottery: true
 ct: 3

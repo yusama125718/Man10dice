@@ -1,15 +1,16 @@
 name: Man10Dice
 version: '${project.version}'
 main: yusama125718.man10dice.Man10Dice
-api-version: 1.17
+api-version: 1.19
+authors: [ yusama125718 ]
 
 commands:
   mdice:
     description: send a diceroll
-    usage: /<command> [text] [text]
+    usage: /mdiceでhelpを確認
   mlot:
     description: lottery
-    usage: /<command> [text] [text]
+    usage: /mlotでhelpを確認
 
 parmissions:
   mdice.op:
