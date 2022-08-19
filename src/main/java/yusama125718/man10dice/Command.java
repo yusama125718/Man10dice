@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 
 import java.util.*;
 
+import static java.lang.Integer.min;
 import static java.lang.Integer.parseInt;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.event.ClickEvent.runCommand;
@@ -89,8 +90,12 @@ public class Command implements CommandExecutor, TabCompleter {
                             player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lはダイスを振っています...");
                         }
                     }
+                    player = (Player) sender;
+                    maxstakes = dicestakes;
+                    minstackes = 1;
+                    dice = 1;
                     Dice dice = new Dice();
-                    dice.MdiceDice((Player) sender, dicestakes, 1, 1);
+                    dice.start();
                     return true;
                 }
 
@@ -138,8 +143,12 @@ public class Command implements CommandExecutor, TabCompleter {
                             player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lはダイスを" + numberofdice + "個振っています...");
                         }
                     }
+                    player = (Player) sender;
+                    maxstakes = dicestakes;
+                    minstackes = 1;
+                    dice = numberofdice;
                     Dice dice = new Dice();
-                    dice.MdiceDice((Player) sender, dicestakes, 1, numberofdice);
+                    dice.start();
                     return true;
                 }
 
@@ -197,8 +206,12 @@ public class Command implements CommandExecutor, TabCompleter {
                             player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lはダイスを" + numberofdice + "個振っています...");
                         }
                     }
+                    player = (Player) sender;
+                    maxstakes = dicestakes;
+                    minstackes = minstakes;
+                    dice = numberofdice;
                     Dice dice = new Dice();
-                    dice.MdiceDice((Player) sender, dicestakes, minstakes, numberofdice);
+                    dice.start();
                     return true;
                 }
 
@@ -262,20 +275,22 @@ public class Command implements CommandExecutor, TabCompleter {
                     }
 
                     if (args[0].equals("random")){
-                        if (appliedplayers.size() == mlotdicestakes){
+                        if (appliedplayers.size() == mlotstackes){
                             sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§r§r§c§l全ての数字が埋まっています！");
                             return true;
                         }
                         Random dicerondom = new Random();
                         int addrand = dicerondom.nextInt(remaining.size() - 1) + 1;
-                        if (appliedplayers.containsKey(addrand)){
+                        if (appliedplayers.containsKey(remaining.get(addrand))){
                             sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§r§r§c§l追加に失敗しました。もう一度お試しください。");
                             return true;
                         }
                         appliedplayers.put(remaining.get(addrand), mlotplayerid.getUniqueId());
+                        int add = remaining.get(addrand);
                         remaining.remove(addrand);
-                        sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§e§l" + addrand + "で応募しました！");
-                        owner.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§c§l" + Objects.requireNonNull(((Player) sender).getPlayer()).getName() + "§e§lが" + remaining.get(addrand) + "を応募しました");
+                        sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§e§l" + remaining.get(addrand) + "で応募しました！");
+                        owner.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§c§l" + Objects.requireNonNull(((Player) sender).getPlayer()).getName() + "§e§lが" + add + "を応募しました");
+                        return true;
                     }
 
                     if (!(args[0].length() <= 10)) {
@@ -289,8 +304,8 @@ public class Command implements CommandExecutor, TabCompleter {
                             return true;
                         }
                         int luckynumber = parseInt(args[0]);
-                        if (mlotdicestakes < luckynumber) {
-                            sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§l" + mlotdicestakes + "以下の整数にしてください");
+                        if (mlotstackes < luckynumber) {
+                            sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§l" + mlotstackes + "以下の整数にしてください");
                             return true;
                         }
                         if (1 > luckynumber) {
@@ -365,7 +380,7 @@ public class Command implements CommandExecutor, TabCompleter {
                         mlotoperation = true;
                         activegame = true;
                         for (int i = 1;i <= stacks;i++) remaining.add(i);
-                        Player owner = ((Player) sender).getPlayer();
+                        owner = ((Player) sender).getPlayer();
                         for (Player player : Bukkit.getOnlinePlayers()) {
                             if (!mlotdissableplayers.contains(player.getUniqueId())) {
                                 player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§b§l" + sender.getName() + "§lが§e§l" + args[0] + "D§fを§l開始しました！ §e/mlot [数字] §r§lで§c§l参加しましょう！");
@@ -373,8 +388,10 @@ public class Command implements CommandExecutor, TabCompleter {
                                 player.sendMessage(text("§e§l[ここをクリックでランダム応募する]").clickEvent(runCommand("/mlot random")));
                             }
                         }
+                        mlotstackes = stacks;
+                        mlottime = dicedelay;
                         Mlot lot = new Mlot();
-                        lot.Lottery(dicedelay,stacks,owner);
+                        lot.start();
                         return true;
                     } else {
                         sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f §7/mlot hide : §l非表示にします");
@@ -427,7 +444,7 @@ public class Command implements CommandExecutor, TabCompleter {
             }
             if (args.length == 3)
             {
-                if (args[1].length() == 0)
+                if (args[2].length() == 0)
                 {
                     return Collections.singletonList("[ダイスの数]");
                 }

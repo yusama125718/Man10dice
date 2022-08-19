@@ -5,15 +5,15 @@ import org.bukkit.entity.Player;
 
 import java.util.Random;
 
-import static java.lang.Thread.sleep;
 import static yusama125718.man10dice.Man10Dice.dissableplayers;
 import static yusama125718.man10dice.Man10Dice.*;
 
-public class Dice {
-    public void MdiceDice(Player p,Integer maxstakes,Integer minstakes,Integer dicecount) {
+public class Dice extends Thread{
+    @Override
+    public void run() {
         operation = true;
         try{
-            sleep(30000);
+            sleep(3000);
         }catch (InterruptedException e) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (!dissableplayers.contains(player.getUniqueId())) {
@@ -24,39 +24,39 @@ public class Dice {
             return;
         }
         Random dicerondom = new Random();
-        if (minstakes == 1 && dicecount == 1){
+        if (minstackes == 1 && dice == 1){
             int outnumber = dicerondom.nextInt(maxstakes) + 1;
             for (Player player:Bukkit.getOnlinePlayers())
             {
                 if (!dissableplayers.contains(player.getUniqueId()))
                 {
-                    player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + p.getName() + "§lは" + maxstakes + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
+                    player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + player.getName() + "§lは" + maxstakes + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
                 }
             }
-        }else if (minstakes != 1 && dicecount == 1){
-            int outnumber = dicerondom.nextInt(maxstakes - minstakes) + minstakes - 1;
+        }else if (minstackes != 1 && dice == 1){
+            int outnumber = dicerondom.nextInt(maxstakes - minstackes) + minstackes - 1;
             for (Player player:Bukkit.getOnlinePlayers())
             {
                 if (!dissableplayers.contains(player.getUniqueId()))
                 {
-                    player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + p.getName() + "§lは"+ minstakes + "面以上" + maxstakes + "面以下ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
+                    player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + player.getName() + "§lは"+ minstackes + "面以上" + maxstakes + "面以下ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
                 }
             }
-        }else if (minstakes == 1){
-            for (int i = 0 ; i < dicecount ; i++) {
+        }else if (minstackes == 1){
+            for (int i = 0 ; i < dice ; i++) {
                 int outnumber = dicerondom.nextInt(maxstakes) + 1;
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (!dissableplayers.contains(player.getUniqueId())) {
-                        player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + p.getName() + "§lは" + maxstakes + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
+                        player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + player.getName() + "§lは" + maxstakes + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
                     }
                 }
             }
         }else{
-            for (int i = 0 ; i < dicecount ; i++) {
-                int outnumber = dicerondom.nextInt(maxstakes - minstakes) + minstakes - 1;
+            for (int i = 0 ; i < dice ; i++) {
+                int outnumber = dicerondom.nextInt(maxstakes - minstackes) + minstackes - 1;
                 for (Player player : Bukkit.getOnlinePlayers()) {
                     if (!dissableplayers.contains(player.getUniqueId())) {
-                        player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + p.getName() + "§lは" + maxstakes + "面以上" + minstakes + "面以下ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
+                        player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + player.getName() + "§lは" + maxstakes + "面以上" + minstackes + "面以下ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
                     }
                 }
             }

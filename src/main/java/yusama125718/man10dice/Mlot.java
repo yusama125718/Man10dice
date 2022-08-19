@@ -5,18 +5,16 @@ import org.bukkit.entity.Player;
 
 import java.util.Random;
 
-import static java.lang.Thread.sleep;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.event.ClickEvent.runCommand;
 import static net.kyori.adventure.text.event.ClickEvent.suggestCommand;
 import static yusama125718.man10dice.Man10Dice.*;
 
-public class Mlot {
-    public void Lottery(Integer time, Integer stacks, Player muster) {
-        mlotdicestakes = stacks;
-        owner = muster;
+public class Mlot extends Thread{
+    @Override
+    public void run() {
         try{
-            sleep(time % 20 * 1000);
+            sleep(mlottime % 20 * 1000);
         }catch (InterruptedException e) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (!dissableplayers.contains(player.getUniqueId())) {
@@ -26,11 +24,11 @@ public class Mlot {
             e.printStackTrace();
             return;
         }
-        time -= time % 20;
-        for (int i = 0;i < time / 20;i++){
+        mlottime -= mlottime % 20;
+        for (int i = 0;i < mlottime / 20;i++){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (!mlotdissableplayers.contains(player.getUniqueId())) {
-                    player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§b§l" + owner.getName() + "§lが§e§l" + stacks + "D§fを§l開始しました！ §e/mlot [数字] §r§lで§c§l参加しましょう！");
+                    player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§b§l" + owner.getName() + "§lが§e§l" + mlotstackes + "D§fを§l開始しました！ §e/mlot [数字] §r§lで§c§l参加しましょう！");
                     player.sendMessage(text("§e§l[ここをクリックで自動入力する]").clickEvent(suggestCommand("/mlot ")));
                     player.sendMessage(text("§e§l[ここをクリックでランダム応募する]").clickEvent(runCommand("/mlot random")));
                 }
@@ -53,7 +51,7 @@ public class Mlot {
             }
         }
         try{
-            sleep(30000);
+            sleep(3000);
         }catch (InterruptedException e) {
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (!dissableplayers.contains(player.getUniqueId())) {
@@ -64,10 +62,10 @@ public class Mlot {
             return;
         }
         Random dicerondom = new Random();
-        int outnumber = dicerondom.nextInt(stacks) + 1;
+        int outnumber = dicerondom.nextInt(mlotstackes) + 1;
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!mlotdissableplayers.contains(player.getUniqueId())) {
-                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r" + owner.getName() + "§lは" + stacks + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
+                player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r" + owner.getName() + "§lは" + mlotstackes + "面ダイスを振って §e§l" + outnumber + "§r§l を出しました！");
             }
         }
         int winner = 0;

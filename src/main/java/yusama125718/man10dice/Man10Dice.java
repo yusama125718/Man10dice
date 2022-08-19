@@ -15,9 +15,9 @@ public final class Man10Dice extends JavaPlugin implements Listener, CommandExec
     public static List<UUID> mlotdissableplayers=new ArrayList<>();
     public static boolean mlotoperation = false;
     public static boolean activegame = false;
-    public static int mlotdicestakes;
     public static Player owner;
-
+    public static int mlottime;
+    public static int mlotstackes;
     public static HashMap<Integer,UUID> appliedplayers = new HashMap<>();
     public static List<Integer> remaining = new ArrayList<>();
     public static boolean ondice;
@@ -25,6 +25,10 @@ public final class Man10Dice extends JavaPlugin implements Listener, CommandExec
     public static int ct;
     public static yusama125718.man10dice.Man10Dice Man10Dice;
     public static int maxdice;
+    public static int maxstakes;
+    public static int minstackes;
+    public static int dice;
+    public static Player player;
     public static int maxtime;
 
     @Override
