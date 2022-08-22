@@ -28,7 +28,7 @@ public final class Man10Dice extends JavaPlugin implements Listener, CommandExec
     public static int maxstakes;
     public static int minstackes;
     public static int dice;
-    public static Player player;
+    public static Player dicer;
     public static int maxtime;
 
     @Override

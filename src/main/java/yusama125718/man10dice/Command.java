@@ -90,7 +90,7 @@ public class Command implements CommandExecutor, TabCompleter {
                             player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lはダイスを振っています...");
                         }
                     }
-                    player = (Player) sender;
+                    dicer = (Player) sender;
                     maxstakes = dicestakes;
                     minstackes = 1;
                     dice = 1;
@@ -143,7 +143,7 @@ public class Command implements CommandExecutor, TabCompleter {
                             player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lはダイスを" + numberofdice + "個振っています...");
                         }
                     }
-                    player = (Player) sender;
+                    dicer = (Player) sender;
                     maxstakes = dicestakes;
                     minstackes = 1;
                     dice = numberofdice;
@@ -206,7 +206,7 @@ public class Command implements CommandExecutor, TabCompleter {
                             player.sendMessage("§l[§e§lMan10Dice§f§l]§r" + sender.getName() + "§lはダイスを" + numberofdice + "個振っています...");
                         }
                     }
-                    player = (Player) sender;
+                    dicer = (Player) sender;
                     maxstakes = dicestakes;
                     minstackes = minstakes;
                     dice = numberofdice;
@@ -275,6 +275,14 @@ public class Command implements CommandExecutor, TabCompleter {
                     }
 
                     if (args[0].equals("random")){
+                        if (!activegame) {
+                            sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§l現在応募は受け付けていません");
+                            return true;
+                        }
+                        if (appliedplayers.containsValue(mlotplayerid.getUniqueId())) {
+                            sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§lあなたはすでに応募しています");
+                            return true;
+                        }
                         if (appliedplayers.size() == mlotstackes){
                             sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§r§r§c§l全ての数字が埋まっています！");
                             return true;
@@ -288,7 +296,7 @@ public class Command implements CommandExecutor, TabCompleter {
                         appliedplayers.put(remaining.get(addrand), mlotplayerid.getUniqueId());
                         int add = remaining.get(addrand);
                         remaining.remove(addrand);
-                        sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§e§l" + remaining.get(addrand) + "で応募しました！");
+                        sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§e§l" + add + "で応募しました！");
                         owner.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§c§l" + Objects.requireNonNull(((Player) sender).getPlayer()).getName() + "§e§lが" + add + "を応募しました");
                         return true;
                     }

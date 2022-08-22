@@ -28,7 +28,7 @@ public class Mlot extends Thread{
         for (int i = 0;i < mlottime / 20;i++){
             for (Player player : Bukkit.getOnlinePlayers()) {
                 if (!mlotdissableplayers.contains(player.getUniqueId())) {
-                    player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§b§l" + owner.getName() + "§lが§e§l" + mlotstackes + "D§fを§l開始しました！ §e/mlot [数字] §r§lで§c§l参加しましょう！");
+                    player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§b§l" + owner.getName() + "§lが§e§l" + mlotstackes + "D§fを§l開催中！ §e/mlot [数字] §r§lで§c§l参加しましょう！§7残り"+ (mlottime - i *20) +"秒");
                     player.sendMessage(text("§e§l[ここをクリックで自動入力する]").clickEvent(suggestCommand("/mlot ")));
                     player.sendMessage(text("§e§l[ここをクリックでランダム応募する]").clickEvent(runCommand("/mlot random")));
                 }
@@ -45,6 +45,7 @@ public class Mlot extends Thread{
                 return;
             }
         }
+        activegame = false;
         for (Player player : Bukkit.getOnlinePlayers()) {
             if (!mlotdissableplayers.contains(player.getUniqueId())) {
                 player.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§lダイスを振っています...");
@@ -100,6 +101,7 @@ public class Mlot extends Thread{
                 }
             }
         }
+        remaining.clear();
         appliedplayers.clear();
         mlotoperation = false;
     }
