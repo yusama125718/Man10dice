@@ -283,7 +283,7 @@ public class Command implements CommandExecutor, TabCompleter {
                             sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§f§r§c§lあなたはすでに応募しています");
                             return true;
                         }
-                        if (appliedplayers.size() == mlotstackes){
+                        if (appliedplayers.size() == mlotstackes || remaining.size() == 0){
                             sender.sendMessage("§l[§d§lM§f§la§a§ln§f§l10§5§lDice§f§l]§r§r§c§l全ての数字が埋まっています！");
                             return true;
                         }
